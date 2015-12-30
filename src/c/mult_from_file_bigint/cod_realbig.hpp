@@ -10,11 +10,13 @@ using namespace std;
 using namespace boost::interprocess;
 using namespace boost::multiprecision;
 
+using int101_t = number<cpp_int_backend<101, 101, signed_magnitude, unchecked, void>>;
 using int201_t = number<cpp_int_backend<201, 201, signed_magnitude, unchecked, void>>;
 //2 ^ 201 / 2 - 1 = 1606938044258990275541962092341162602522202993782792835301375    -> 61 chars
 
-using int_type = int201_t;
-//using int_type = int256_t;
+//using int_type = int201_t;
+using int_type = int256_t;
+//using int_type = int101_t;
 
 // Concepts
 #define IntegerType typename
@@ -45,7 +47,9 @@ void mult_files_big_buffer() {
 		auto dos = range_to_bigint<int_type, 31>(buffer);
 		buffer += 33; //31 + 2 (CRLF)
 
+		//auto resultado = static_cast<int201_t>(uno) * dos;
 		auto resultado = uno * dos;
+
 		fprintf(out, "%s\n", resultado.str().c_str());
 		//cout << "resultado: " << resultado << endl;
 	}
