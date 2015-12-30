@@ -81,7 +81,7 @@ double measure_min_void(F f) {
 	sort(begin(trials), end(trials)); 
 
 	auto n = distance(begin(trials) + size_t(NumTrials * 0.2), end(trials) - size_t(NumTrials * 0.2));
-	cout << "distance: " << n << endl;
+	//cout << "distance: " << n << endl;
 
 
 	// auto a = accumulate(begin(trials) + size_t(NumTrials * 0.2), end(trials) - size_t(NumTrials * 0.2), 0.0);
@@ -122,12 +122,12 @@ double measure_void(F f) {
 	} 
 
 	// cout << "SORTING..." << endl;
-	for_each(begin(trials), end(trials), [](double x) { cout << "trial: " << x << endl;}); 
+	//for_each(begin(trials), end(trials), [](double x) { cout << "trial: " << x << endl;}); 
 
 	sort(begin(trials), end(trials)); 
 
 	auto n = distance(begin(trials) + size_t(NumTrials * 0.2), end(trials) - size_t(NumTrials * 0.2));
-	cout << "distance: " << n << endl;
+	//cout << "distance: " << n << endl;
 
 
 	// auto a = accumulate(begin(trials) + size_t(NumTrials * 0.2), end(trials) - size_t(NumTrials * 0.2), 0.0);
@@ -142,6 +142,9 @@ double measure_void(F f) {
 
 
 }
+
+// Concepts emulation undef
+#undef Function typename
 
 #endif // MEASUREMENTS_HPP_
 
