@@ -75,7 +75,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>BOOST_DATE_TIME_NO_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>%BOOST_ROOT%;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Development\DesmitificandoPythonMasRapidoQueC\src\c\DesmitificandoPythonMasRapidoQueC\DesmitificandoPythonMasRapidoQueC;D:\Libs\Boost\boost_1_60_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -93,7 +95,11 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>BOOST_DATE_TIME_NO_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>%BOOST_ROOT%;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Development\DesmitificandoPythonMasRapidoQueC\src\c\DesmitificandoPythonMasRapidoQueC\DesmitificandoPythonMasRapidoQueC;D:\Libs\Boost\boost_1_60_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -118,6 +124,7 @@
     <ClInclude Include="..\..\mult_from_file\cod_masreal.hpp" />
     <ClInclude Include="..\..\mult_from_file\cod_masreal_mm.hpp" />
     <ClInclude Include="..\..\mult_from_file_bigint\cod_realbig.hpp" />
+    <ClInclude Include="boost_multiprecision_cpp_int_ext.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\mult_from_file\cod_masreal.cpp" />

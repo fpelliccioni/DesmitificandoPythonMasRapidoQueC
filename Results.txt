@@ -1,0 +1,83 @@
+Mult
+	10000 ejecuciones
+		C: 		0 nanoseconds
+		Python:	? nanoseconds
+
+Mult100
+	10000 ejecuciones
+		C: 		0 nanoseconds
+		Python:	? nanoseconds
+
+
+Mult from File (AKA: Mas real):
+
+	C
+		mult_files_fscanf: 
+				GCC MinGW 
+					4.09766 seconds
+
+				MSVC
+					12:06:54.58
+					874889 microseconds
+					12:06:55.46
+
+		Memory
+				D:\Development\DesmitificandoPythonMasRapidoQueC\src\c\mult_from_file>cod_masreal_msvc.bat
+	
+				MSVC
+
+					11:58:43.29
+					11:58:43.63
+								     0.34 seconds
+								   340    milliseconds
+								340000    microseconds
+
+
+					12:11:31.94
+					344736 microseconds
+					12:11:32.33
+
+				-------------------
+
+	Python
+
+			D:\Development\DesmitificandoPythonMasRapidoQueC\src\python\mult_from_file>cod_masreal.bat
+			12:01:52.94
+			12:01:55.68
+
+							      2.74 seconds
+							   2740    milliseconds
+							2740000    microseconds
+
+
+	Resultado:
+		2740000 / 344736 = 7.948111018286456882948111018286456882948111018286456882948111...
+		                 = 8x
+
+Mult from File - 30 digits numbers:
+
+	C++
+		D:\Development\DesmitificandoPythonMasRapidoQueC\src\c\mult_from_file_bigint>cod_realbig.bat
+		16:56:46.54
+		16:56:48.87
+						       2.20 		seconds
+							   2200    milliseconds
+							2200000    microseconds
+
+
+17:11:49.23
+2.1923e+06;
+17:11:51.43
+
+
+	Python
+		D:\Development\DesmitificandoPythonMasRapidoQueC\src\python\mult_from_file_bigint>cod_realbig.bat
+		16:59:14.86
+		16:59:20.00
+						       5.14 		seconds
+							   5140    milliseconds
+							5140000    microseconds
+
+			Resultado:
+				5140000 / 2200000 = 2.336363636363636363636363636363636363636363636363636363636363...
+				                 = 2.33x

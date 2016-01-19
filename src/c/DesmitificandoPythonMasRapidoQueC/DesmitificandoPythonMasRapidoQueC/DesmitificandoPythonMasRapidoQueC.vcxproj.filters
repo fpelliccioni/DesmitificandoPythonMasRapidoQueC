@@ -27,6 +27,9 @@
     <ClInclude Include="..\..\mult_from_file_bigint\cod_realbig.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="boost_multiprecision_cpp_int_ext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\mult_from_file\cod_masreal.cpp">

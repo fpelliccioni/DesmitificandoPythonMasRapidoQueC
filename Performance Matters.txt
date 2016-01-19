@@ -1,0 +1,41 @@
+Performance Matters
+Why?
+Hoy: Energy, bateries, data centers...
+
+Ken Thompson
+
+Measure first, tune what matters
+
+---------------------------------------
+Benchmarking
+
+	Eric Brummer (Microsoft)
+
+	Macro benchmarking -- Bryce (ver)
+
+	Micro Benchmarking
+		isolated part of your system
+
+	Google benchmark (for microbenchmark)
+---------------------------------------
+
+Primer paso:  medir
+Segundo paso: Entender que estamos midiendo
+
+Usar un Profiler
+	perf en Linux
+	intel vtune
+
+	flag: -fno-omit-frame-pointer (GCC y Clang, VER MSVC?)
+
+
+Optimizador
+
+En produccion usamos programas compilados con optimizaciones activas. Por que voy a medir algo sin optimizar? Cual es el sentido?
+
+Que queremos medir?
+Multiplicacion? o IO? 
+En este caso estamos metiendo todo en la misma bolsa.
+
+Que significa medir codigos similares escritos en lenguajes de programacion distintos?
+Tiene sentido?
