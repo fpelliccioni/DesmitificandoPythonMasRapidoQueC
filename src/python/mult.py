@@ -162,7 +162,33 @@ def mult_d(data):
 
 	return t2 - t1
 
+def mult_e(input_output, input):
 
+	f = 0
+	l = len(input);
+	m = f + int(l * 0.2);
+
+	while f != m:
+		uno = input_output[f]
+		dos = input[f]
+		
+		input_output[f] = uno * dos
+
+		f += 1
+	
+
+	t1 = hrc.nanoseconds_since_epoch()
+
+	while m != l: 
+		uno = input_output[m]
+		dos = input[m]
+
+		input_output[m] = uno * dos
+		m += 1;
+
+	t2 = hrc.nanoseconds_since_epoch()
+
+	return t2 - t1
 
 
 # ----------------------------------------------------------------------------
@@ -298,6 +324,47 @@ def measure_and_print_mult_a(data):
 
 	print("mult_a             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
+def measure_and_print_mult_b(data):
+
+	p = measure_v2( data,
+					1000,
+					lambda: None,
+					lambda x: mult_b(x)
+					)
+
+	print("mult_b             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+def measure_and_print_mult_c(data):
+
+	p = measure_v2( data,
+					1000,
+					lambda: None,
+					lambda x: mult_c(x)
+					)
+
+	print("mult_c             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_mult_d(data):
+
+	p = measure_v2( data,
+					1000,
+					lambda: None,
+					lambda x: mult_d(x)
+					)
+
+	print("mult_d             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_mult_e(data):
+
+	p = measure_v2( data,
+					1000,
+					lambda: None,
+					lambda x: mult_e(x)
+					)
+
+	print("mult_e             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
 
 def run_mearurements(bits, min_size, max_size):
 
@@ -312,7 +379,12 @@ def run_mearurements(bits, min_size, max_size):
 		# measure_and_print_mult_big_vector_hot<IntMax>(data2);
 		# measure_and_print_mult_a(data1);
 
-		measure_and_print_mult_a(data)
+		# measure_and_print_mult_a(data)
+		measure_and_print_mult_b(data)
+		# measure_and_print_mult_c(data)
+		# measure_and_print_mult_d(data)
+		# measure_and_print_mult_e(data)
+
 
 		print("-------------------------")
 
