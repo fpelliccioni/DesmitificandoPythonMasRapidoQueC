@@ -186,11 +186,11 @@ def measure_v2(data, numTrials, setUp, test):
 	m = mean(trials)
 
 
-	# // mean-median test
-	# //sort(begin(trials), end(trials));
-	# //double median = trials[numConcreteTrials / 2];
-	# //auto mmtest = std::abs(mean - median) / max(mean, median);
-	# //cout << "mean: " << mean << " - median: " << median << " - mean-median test: " << mmtest << endl;
+	 # mean-median test
+	trials.sort()
+	median = trials[numConcreteTrials // 2];
+	mmtest = abs(m - median) / max(m, median);
+	print("mean: ", m, " - median: ", median, " - mean-median test: ", mmtest)
 
 	return [m, ssd];
 
