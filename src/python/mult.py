@@ -18,10 +18,10 @@ def mult1():
 	return c
 
 
-def mult_big_vector_no_out_hot(data):
+def mult_a(data):
 
 
-	# print("mult_big_vector_no_out_hot: ", len(data))
+	# print("mult_a: ", len(data))
 
 	f = 0
 	l = len(data);
@@ -71,6 +71,97 @@ def mult_big_vector_no_out_hot(data):
 	# print("diff:  ", t2 - t1)
 
 	return t2 - t1
+
+
+def mult_b(input, output):
+
+	f = 0
+	l = len(input);
+	m = f + int(l * 0.2);
+
+	while f != m:
+		uno = input[f][0]
+		dos = input[f][1]
+		
+		output[f] = uno * dos
+
+		f += 1
+	
+
+	t1 = hrc.nanoseconds_since_epoch()
+
+	while m != l: 
+		uno = input[m][0]
+		dos = input[m][1]
+
+		output[m] = uno * dos
+		m += 1;
+
+	t2 = hrc.nanoseconds_since_epoch()
+
+	return t2 - t1
+
+def mult_c(input_a, intput_b, output):
+
+	f = 0
+	l = len(input_a);
+	m = f + int(l * 0.2);
+
+	while f != m:
+		uno = input_a[f]
+		dos = input_b[f]
+		
+		output[f] = uno * dos
+
+		f += 1
+	
+
+	t1 = hrc.nanoseconds_since_epoch()
+
+	while m != l: 
+		uno = input_a[m]
+		dos = input_b[m]
+
+		output[m] = uno * dos
+		m += 1;
+
+	t2 = hrc.nanoseconds_since_epoch()
+
+	return t2 - t1
+
+
+
+def mult_d(data):
+
+	f = 0
+	l = len(data);
+	m = f + int(l * 0.2);
+
+	while f != m:
+		uno = data[f][0]
+		dos = data[f][1]
+		
+		# data[f][2] = uno * dos			# tuples are immutables in Python
+		data[f] = [uno, dos, uno * dos]		# workaround
+
+		f += 1
+	
+
+	t1 = hrc.nanoseconds_since_epoch()
+
+	while m != l: 
+		uno = data[m][0]
+		dos = data[m][1]
+
+		# data[m][2] = uno * dos			# tuples are immutables in Python
+		data[m] = [uno, dos, uno * dos]		# workaround
+
+		m += 1;
+
+	t2 = hrc.nanoseconds_since_epoch()
+
+	return t2 - t1
+
 
 
 
@@ -197,15 +288,15 @@ def measure_v2(data, numTrials, setUp, test):
 
 
 
-def measure_and_print_mult_big_vector_no_out_hot(data):
+def measure_and_print_mult_a(data):
 
 	p = measure_v2( data,
 					1000,
 					lambda: None,
-					lambda x: mult_big_vector_no_out_hot(x)
+					lambda x: mult_a(x)
 					)
 
-	print("mult_big_vector_no_out_hot             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+	print("mult_a             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
 def run_mearurements(bits, min_size, max_size):
@@ -219,9 +310,9 @@ def run_mearurements(bits, min_size, max_size):
 
 		# //measure_and_print_mult_big_vector_do_nothing_hot(data2);
 		# measure_and_print_mult_big_vector_hot<IntMax>(data2);
-		# measure_and_print_mult_big_vector_no_out_hot(data1);
+		# measure_and_print_mult_a(data1);
 
-		measure_and_print_mult_big_vector_no_out_hot(data)
+		measure_and_print_mult_a(data)
 
 		print("-------------------------")
 
