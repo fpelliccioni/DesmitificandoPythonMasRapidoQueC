@@ -3,15 +3,25 @@
 //  https://docs.python.org/3.5/extending/building.html#building
 
 // Compilation
+//    export CFLAGS='-std=c++11'
 // 		python setup.py build
 // 		python setup.py install
+//  or (on OSX)
+//    export CPPFLAGS='-std=c++1y -stdlib=libc++ -mmacosx-version-min=10.7'
+//    python3 setup.py build
+//    python3 setup.py install
+
 
 // Test
 // 		>>> import hrc
 // 		>>> status = hrc.nanoseconds_since_epoch()
 
 
+
 // hrc: high_resolution_clock
+
+
+
 
 #include <chrono>
 #include <Python.h>
