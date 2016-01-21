@@ -189,10 +189,10 @@ def measure_v2(data, numTrials, setUp, test):
 	 # mean-median test
 	trials.sort()
 	median = trials[numConcreteTrials // 2];
-	mmtest = abs(m - median) / max(m, median);
-	print("mean: ", m, " - median: ", median, " - mean-median test: ", mmtest)
+	# mmtest = abs(m - median) / max(m, median);
+	# print("mean: ", m, " - median: ", median, " - mean-median test: ", mmtest)
 
-	return [m, ssd];
+	return [m, ssd, median];
 
 
 
@@ -205,7 +205,7 @@ def measure_and_print_mult_big_vector_no_out_hot(data):
 					lambda x: mult_big_vector_no_out_hot(x)
 					)
 
-	print("mult_big_vector_no_out_hot             ;", len(data), ";", p[0], ";", p[1])
+	print("mult_big_vector_no_out_hot             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
 def run_mearurements(bits, min_size, max_size):
