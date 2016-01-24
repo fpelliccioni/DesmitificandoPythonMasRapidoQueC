@@ -483,7 +483,7 @@ def measure_and_print_mult_e(input_output, input):
 					lambda: mult_e(input_output, input)
 					)
 
-	print("mult_e             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+	print("mult_e             ;", len(input_output), ";", p[0], ";", p[1], ";", p[2])
 
 
 def measure_and_print_mult_f(input_a, input_b):
@@ -530,7 +530,7 @@ def run_mearurements_a(bits, min_size, max_size):
 
 
 		# measure_and_print_mult_b(data)   # falta medir, osx
-		measure_and_print_mult_d(data)   # falta medir win32, osx
+		# measure_and_print_mult_d(data)   # falta medir , osx
 
 		print("-------------------------")
 
@@ -548,7 +548,7 @@ def run_mearurements_b(bits, min_size, max_size):
 		input_b = createRandomIntList_Bits_Signed(bits, array_size)
 
 		# measure_and_print_mult_c(input_a, input_b)     # falta medir osx
-		# measure_and_print_mult_e(input_a, input_b)   # falta medir win32, osx
+		measure_and_print_mult_e(input_a, input_b)   # falta medir win32, osx
 		# measure_and_print_mult_f(input_a, input_b)     # falta medir osx
 
 
@@ -576,8 +576,8 @@ def main():
 	bits = 32	
 
 
-	run_mearurements_a(bits, min_size, max_size)
-	# run_mearurements_b(bits, min_size, max_size)
+	# run_mearurements_a(bits, min_size, max_size)
+	run_mearurements_b(bits, min_size, max_size)
 	# run_mearurements_c(bits)
 
 
