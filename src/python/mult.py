@@ -1,9 +1,9 @@
 import hrc
 import random
-import timeit  # http://stackoverflow.com/questions/85451/python-time-clock-vs-time-time-accuracy
+# import timeit  # http://stackoverflow.com/questions/85451/python-time-clock-vs-time-time-accuracy
 import math
 # import copy
-
+import datetime
 
 
 # ----------------------------------------------------------------------------
@@ -516,6 +516,7 @@ def run_mearurements_a(bits, min_size, max_size):
 	while array_size <= max_size:
 
 		data = createRandomPairIntList_Bits_Signed(bits, array_size)
+		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
 
 		# data2 = copy_convert_vector(data1);
 
@@ -525,8 +526,8 @@ def run_mearurements_a(bits, min_size, max_size):
 
 
 
-		# measure_and_print_mult_a(data)              # falta medir osx
-		# measure_and_print_mult_a_with_copy(data)    # falta medir win32, osx
+		measure_and_print_mult_a(data)              	# falta medir 32: osx,         101: win32, osx
+		# measure_and_print_mult_a_with_copy(data)    	# falta medir 32: win32, osx   101: win32, osx
 
 
 		# measure_and_print_mult_b(data)   # falta medir, osx
@@ -573,11 +574,20 @@ def main():
 	min_size = 16 * 1024
 	max_size = 8 * 1024 * 1024;
 	# max_size = 16 * 1024 * 1024;
-	bits = 32	
+
+	# bits = 32
+	# bits = 64?
+	bits = 101
+
+	# (2^x/2)-1>10^digits-1			=
+	# 	ceil(((d+1) log(2) + d log(5))/(log(2)))
+	# (2^x/2)-1>10^30-1				= 		
+	# 	ceil((31 log(2)+30 log(5))/(log(2)))
 
 
-	# run_mearurements_a(bits, min_size, max_size)
-	run_mearurements_b(bits, min_size, max_size)
+
+	run_mearurements_a(bits, min_size, max_size)
+	# run_mearurements_b(bits, min_size, max_size)
 	# run_mearurements_c(bits)
 
 
