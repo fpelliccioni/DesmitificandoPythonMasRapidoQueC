@@ -11,11 +11,23 @@ import datetime
 # ----------------------------------------------------------------------------
 
 
-def mult_no():
+def mult_original_1():
 	a = 5
 	b = 10
 	c = a * b
-	return c
+	# return c
+
+def mult_original_100():
+
+	# print("mult_original_100")
+	a = 5
+	b = 10
+
+	# for i in xrange(100000):
+	for i in range(100000):
+	    c = a * b
+
+
 
 
 def mult_a(data):
@@ -179,6 +191,11 @@ def mult_f(input_a, input_b):
 		a = input_a[f]
 		b = input_b[f]
 		prod = a * b
+
+		# print("a:    ", a)
+		# print("b:    ", b)
+		# print("prod: ", prod)
+
 		f += 1
 
 	t1 = hrc.nanoseconds_since_epoch()
@@ -221,23 +238,35 @@ def createRandomPairIntList(int_from, int_to, max_data):
     return res    
 
 
+def min_signed_int(bits):
+	return -(2**bits//2)
+
+def max_signed_int(bits):
+	return 2**bits//2-1
+
+def min_unsigned_int(bits):
+	return 0
+
+def max_unsigned_int(bits):
+	return 2**bits
+
 def createRandomIntList_Bits_Signed(bits, max_data):
-	int_from = -(2**bits//2)
-	int_to = 2**bits//2-1
+	int_from = min_signed_int(bits)
+	int_to = max_signed_int(bits)
 
 	return createRandomIntList(int_from, int_to, max_data)
 
 
 def createRandomIntList_Bits_Unsigned(bits, max_data):
-	int_from = 0
-	int_to = 2**bits
+	int_from = min_unsigned_int(bits)
+	int_to = max_unsigned_int(bits)
 
 	return createRandomIntList(int_from, int_to, max_data)
 
 
 def createRandomPairIntList_Bits_Signed(bits, max_data):
-	int_from = -(2**bits//2)
-	int_to = 2**bits//2-1
+	int_from = min_signed_int(bits)
+	int_to = max_signed_int(bits)
 
 	# print(int_from)
 	# print(int_to)
@@ -246,8 +275,8 @@ def createRandomPairIntList_Bits_Signed(bits, max_data):
 
 def createRandomPairIntList_Bits_Unsigned(bits, max_data):
 
-	int_from = 0
-	int_to = 2**bits
+	int_from = min_unsigned_int(bits)
+	int_to = max_unsigned_int(bits)
 
 	# print(int_from)
 	# print(int_to)
@@ -297,41 +326,41 @@ def sample_std_dev(data):
 	return math.sqrt(s2)
 
 
-def get_statistics(trials): 
-	ssd = sample_std_dev(trials)
+def get_statistics(samples_list): 
+	ssd = sample_std_dev(samples_list)
 
 	# //cout << "sample standard deviation " << ssd << endl;
-	# //cout << "trials.size() " << trials.size() << endl;
-	# //cout << "numConcreteTrials " << numConcreteTrials << endl;
+	# //cout << "samples_list.size() " << samples_list.size() << endl;
+	# //cout << "concrete_samples " << concrete_samples << endl;
 
-	# mean = accumulate(trials, 0.0) / numConcreteTrials
-	m = mean(trials)
+	# mean = accumulate(samples_list, 0.0) / concrete_samples
+	m = mean(samples_list)
 
 
 	 # mean-median test
-	trials.sort()
-	median = trials[len(trials) // 2];
+	samples_list.sort()
+	median = samples_list[len(samples_list) // 2];
 	# mmtest = abs(m - median) / max(m, median);
 	# print("mean: ", m, " - median: ", median, " - mean-median test: ", mmtest)
 
 	return [m, ssd, median];
 
-def measure_nullary(numTrials, setUp, test): 
+def measure_nullary(samples, setUp, test): 
 
-	numConcreteTrials = int(numTrials * 0.8)
-	trials = []
+	concrete_samples = int(samples * 0.8)
+	samples_list = []
 
-	for i in range(0, int(numTrials * 0.2)):
+	for i in range(0, int(samples * 0.2)):
 		setUp()
 		test()
 
-	for i in range(0, numConcreteTrials):
+	for i in range(0, concrete_samples):
 		setUp()
 		ns = test()
-		trials.append(ns)
+		samples_list.append(ns)
 		# print("ns: ", ns)
 
-	return get_statistics(trials)
+	return get_statistics(samples_list)
 
 
 def amortize(test, count):
@@ -340,47 +369,49 @@ def amortize(test, count):
 		test()
 
 	t2 = hrc.nanoseconds_since_epoch()
-	ns = (t2 - t1) / count
+	ns = (t2 - t1) #/ count
 
-	return ns
+	# print(ns)
+
+	return ns / count
 
 
-def measure_nullary_amortized(numTrials, amortize_count, test): 
+def measure_nullary_amortized(samples, amortize_count, test): 
 
-	numConcreteTrials = int(numTrials * 0.8)
-	trials = []
+	concrete_samples = int(samples * 0.8)
+	samples_list = []
 
-	for i in range(0, int(numTrials * 0.2)):
+	for i in range(0, int(samples * 0.2)):
 		amortize(test, amortize_count)
 
-	for i in range(0, numConcreteTrials):
+	for i in range(0, concrete_samples):
 		ns = amortize(test, amortize_count)
-		trials.append(ns)
+		samples_list.append(ns)
 
-	return get_statistics(trials)
-
-
+	return get_statistics(samples_list)
 
 
-def measure_unary(data, numTrials, setUp, test): 
 
-	numConcreteTrials = int(numTrials * 0.8)
-	trials = []
+
+def measure_unary(data, samples, setUp, test): 
+
+	concrete_samples = int(samples * 0.8)
+	samples_list = []
 	data_copy = list(data)
 
-	for i in range(0, int(numTrials * 0.2)):
+	for i in range(0, int(samples * 0.2)):
 		setUp()
 		data = list(data_copy)
 		test(data)
 
-	for i in range(0, numConcreteTrials):
+	for i in range(0, concrete_samples):
 		setUp()
 		data = list(data_copy)
 		ns = test(data)
-		trials.append(ns)
+		samples_list.append(ns)
 		# print("ns: ", ns)
 
-	return get_statistics(trials)
+	return get_statistics(samples_list)
 
 
 def clear_list(list): 
@@ -391,6 +422,17 @@ def clear_list(list):
 	while f != l:
 		list[f] = None
 		f += 1
+
+def clear_list_max(list, bits): 
+
+	f = 0
+	l = len(list);
+
+	while f != l:
+		list[f] = max_signed_int(bits)
+		f += 1
+
+		
 
 def clear_list_third(list): 
 
@@ -451,6 +493,33 @@ def measure_and_print_mult_b(data):
 	print("mult_b             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
+# No hay mucha ganancia pre-seteando el array con elementos del tamaño en bits final.
+# Se ve que CPython no aprovecha la memoria ya asignada (allocated)
+# def measure_and_print_mult_b_variant(data, bits_min):
+
+# 	MAX = max_signed_int(bits_min)
+
+# 	# print("MAX: ", MAX)
+
+# 	# output = len(data) * [None]
+# 	output = len(data) * [MAX]
+
+
+# 	# for x in output:
+# 	#     print("x: ", x)
+
+
+
+# 	p = measure_nullary(
+# 					1000,
+# 					lambda: clear_list_max(output, bits_min),  #output[:] = [],
+# 					lambda: mult_b(data, output)
+# 					)
+
+# 	print("mult_bV            ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+
 def measure_and_print_mult_c(input_a, input_b):
 
 	output = len(input_a) * [None]
@@ -497,25 +566,35 @@ def measure_and_print_mult_f(input_a, input_b):
 	print("mult_f             ;", len(input_a), ";", p[0], ";", p[1], ";", p[2])
 
 
-def measure_and_print_mult_no():
+def measure_and_print_mult_original_1():
+
+	p = measure_nullary_amortized(
+					10000,
+					1000,
+					lambda: mult_original_1()
+					)
+
+	print("mult_original_1            ;1000;1000;", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_mult_original_100():
 
 	p = measure_nullary_amortized(
 					1000,
-					1000,
-					lambda: mult_no()
+					1,
+					lambda: mult_original_100()
 					)
 
-	print("mult_no            ;1000;1000;", p[0], ";", p[1], ";", p[2])
+	print("mult_original_100          ;1000;1000;", p[0], ";", p[1], ";", p[2])
 
 
 
-def run_mearurements_a(bits, min_size, max_size):
+def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 
 	array_size = min_size
 
 	while array_size <= max_size:
 
-		data = createRandomPairIntList_Bits_Signed(bits, array_size)
+		data = createRandomPairIntList_Bits_Signed(bits_min, array_size)
 		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
 
 		# data2 = copy_convert_vector(data1);
@@ -526,12 +605,14 @@ def run_mearurements_a(bits, min_size, max_size):
 
 
 
-		measure_and_print_mult_a(data)              	# falta medir 32: osx,         101: win32, osx
+		# measure_and_print_mult_a(data)              	# falta medir 32: osx,         101: win32, osx
 		# measure_and_print_mult_a_with_copy(data)    	# falta medir 32: win32, osx   101: win32, osx
 
 
 		# measure_and_print_mult_b(data)   # falta medir, osx
-		# measure_and_print_mult_d(data)   # falta medir , osx
+		# measure_and_print_mult_b_variant(data, bits_min)   # falta medir, osx
+
+		measure_and_print_mult_d(data)   # falta medir , osx
 
 		print("-------------------------")
 
@@ -539,18 +620,18 @@ def run_mearurements_a(bits, min_size, max_size):
 	
 
 
-def run_mearurements_b(bits, min_size, max_size):
+def run_mearurements_b(bits_min, bits_max, min_size, max_size):
 
 	array_size = min_size
 
 	while array_size <= max_size:
 
-		input_a = createRandomIntList_Bits_Signed(bits, array_size)
-		input_b = createRandomIntList_Bits_Signed(bits, array_size)
+		input_a = createRandomIntList_Bits_Signed(bits_min, array_size)
+		input_b = createRandomIntList_Bits_Signed(bits_min, array_size)
 
-		# measure_and_print_mult_c(input_a, input_b)     # falta medir osx
-		measure_and_print_mult_e(input_a, input_b)   # falta medir win32, osx
-		# measure_and_print_mult_f(input_a, input_b)     # falta medir osx
+		measure_and_print_mult_c(input_a, input_b)     # falta medir 32: osx,         101: win32, osx
+		# measure_and_print_mult_e(input_a, input_b)   # falta medir 32: osx,         101: win32, osx
+		# measure_and_print_mult_f(input_a, input_b)     # falta medir 32: osx,         101: win32, osx
 
 
 		print("-------------------------")
@@ -560,7 +641,8 @@ def run_mearurements_b(bits, min_size, max_size):
 
 
 def run_mearurements_c(bits):
-	measure_and_print_mult_no()        # falta medir osx
+	measure_and_print_mult_original_1()        # falta medir osx
+	# measure_and_print_mult_original_100()        # falta medir osx
 
 
 
@@ -575,9 +657,11 @@ def main():
 	max_size = 8 * 1024 * 1024;
 	# max_size = 16 * 1024 * 1024;
 
-	# bits = 32
-	# bits = 64?
-	bits = 101
+	# bits_min = 32
+	# bits_max = 64?
+	bits_min = 101
+	bits_max = 201
+
 
 	# (2^x/2)-1>10^digits-1			=
 	# 	ceil(((d+1) log(2) + d log(5))/(log(2)))
@@ -586,18 +670,9 @@ def main():
 
 
 
-	run_mearurements_a(bits, min_size, max_size)
-	# run_mearurements_b(bits, min_size, max_size)
-	# run_mearurements_c(bits)
-
-
-	# ----------------------------------------
-	# a = hrc.nanoseconds_since_epoch()
-	# b = hrc.nanoseconds_since_epoch()
-	# print(a)
-	# print(b)
-	# print(b - a)
-
+	run_mearurements_a(bits_min, bits_max, min_size, max_size)
+	# run_mearurements_b(bits_min, bits_max, min_size, max_size)
+	# run_mearurements_c(bits_min, bits_max)
 
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
