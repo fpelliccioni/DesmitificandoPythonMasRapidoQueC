@@ -1,0 +1,34 @@
+
+D:\Development\DesmitificandoPythonMasRapidoQueC\src\python>python mult.py
+mult_d             ; 16384 ; 5391453.68625 ; 155226.3760644367 ; 5367892
+-------------------------
+mult_d             ; 32768 ; 10764617.2475 ; 340198.0637955622 ; 10719961
+-------------------------
+mult_d             ; 65536 ; 21871315.77875 ; 263012.5917341189 ; 21866292
+-------------------------
+mult_d             ; 131072 ; 44209817.1725 ; 432227.0226074 ; 44115761
+-------------------------
+mult_d             ; 262144 ; 89142170.065 ; 1031155.1470975141 ; 89076561
+-------------------------
+mult_d             ; 524288 ; 178015569.1 ; 2508967.7646937487 ; 178070159
+-------------------------
+mult_d             ; 1048576 ; 353504582.08125 ; 7548696.598099271 ; 355460778
+-------------------------
+mult_d             ; 2097152 ; 711122701.2775 ; 11204956.859216833 ; 710989553
+-------------------------
+mult_d             ; 4194304 ; 1432310804.47875 ; 21865669.36445971 ; 1428941287
+-------------------------
+mult_d             ; 8388608 ; 2879146010.87625 ; 72241907.49909827 ; 2884799440
+-------------------------
+Traceback (most recent call last):
+  File "mult.py", line 596, in <module>
+    main()
+  File "mult.py", line 580, in main
+    run_mearurements_b(bits, min_size, max_size)
+  File "mult.py", line 551, in run_mearurements_b
+    measure_and_print_mult_e(input_a, input_b)   # falta medir win32, osx
+  File "mult.py", line 486, in measure_and_print_mult_e
+    print("mult_e             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+NameError: name 'data' is not defined
+
+D:\Development\DesmitificandoPythonMasRapidoQueC\src\python>
