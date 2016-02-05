@@ -23,6 +23,8 @@ using int201_t = number<cpp_int_backend<201, 201, signed_magnitude, unchecked, v
 #define VectorOfInts typename
 #define VectorOfPairs typename
 #define VectorOfTriples typename
+#define Integer typename
+
 
 //-------------------------------------------------------
 
@@ -160,6 +162,44 @@ int64_t mult_b(V1 const& input, V2& output) {
 	auto ns = duration_cast<nanoseconds>(t2 - t1).count();
 
 	return ns;
+}
+
+
+
+template <VectorOfPairs V1, VectorOfInts V2>
+inline
+int64_t mult_b_warm_up(V1 const& input, V2& output) {
+
+	size_t f = 0;
+	size_t m = input.size() * 0.2;
+	// size_t l = input.size();
+
+	while (f != m) {
+		auto a = input[f].first;
+		auto b = input[f].second;
+		output[f] = a * b;
+		++f;
+	}
+
+	return 0;
+}
+
+
+template <VectorOfPairs V1, VectorOfInts V2>
+inline
+int64_t mult_b_without_measurements(V1 const& input, V2& output) {
+	// size_t f = 0;
+	size_t m = input.size() * 0.2;
+	size_t l = input.size();
+
+	while (m != l) {
+		auto a = input[m].first;
+		auto b = input[m].second;
+		output[m] = a * b;
+		++m;
+	}
+
+	return 0ll;
 }
 
 
@@ -558,8 +598,8 @@ void measure_and_print_mult_a_101(V const& copy) {
 template <VectorOfInts V>
 void clear_vector(V& v) { 
 
-	auto f = begin(v);
-	auto l = end(v);
+	auto f = std::begin(v);
+	auto l = std::end(v);
 
 	while (f != l) {
 		*f = 0;
@@ -567,18 +607,47 @@ void clear_vector(V& v) {
 	}
 }
 
-template <VectorOfPairs V1, IntMax I>
-void measure_and_print_mult_b(V1 const& input) {
+template <Integer IntMax, VectorOfPairs V1>
+void measure_and_print_mult_b_32(V1 const& input) {
 
-	vector<I> output(input.size());
+	vector<IntMax> output(input.size());
 
 	// version original, sin amortizacion
 
-	auto t = measure_nullary<1000>(
-		[&]() {clear_vector(output);},
-		[&]() {return mult_b(data); });
+	// auto t = measure_nullary<1000>(
+	// 	[&]() {clear_vector(output);},
+	// 	[&]() {return mult_b(input, output); });
 
-	cout << "mult_b                     ;" << data.size() << ";" << get<0>(t) << ";" << get<1>(t) << ";" << get<2>(t) << endl;	
+	// cout << "mult_b                     ;" << input.size() << ";" << get<0>(t) << ";" << get<1>(t) << ";" << get<2>(t) << endl;	
+
+
+
+	//Versión dinámica 2...
+	if ( input.size() < 64 * 1024) {
+
+		auto t = measure_nullary_amortized<1000, 100>(
+			[&]() { return mult_b_warm_up(input, output); },
+			[&]() {clear_vector(output);},
+			[&]() {return mult_b_without_measurements(input, output); });
+
+		cout << "mult_b                     ;" << input.size() << ";" << get<0>(t) << ";" << get<1>(t) << ";" << get<2>(t) << endl;
+
+	} else if ( input.size() >= 2 * 1024 * 1024) {
+
+		auto t = measure_nullary<1000>(
+			[&]() {clear_vector(output);},
+			[&]() {return mult_b(input, output); });
+
+		cout << "mult_b                     ;" << input.size() << ";" << get<0>(t) << ";" << get<1>(t) << ";" << get<2>(t) << endl;
+	} else {
+
+		auto t = measure_nullary_amortized<1000, 100>(
+			[&]() { return mult_b_warm_up(input, output); },
+			[&]() {clear_vector(output);},
+			[&]() {return mult_b_without_measurements(input, output); });
+
+		cout << "mult_b                     ;" << input.size() << ";" << get<0>(t) << ";" << get<1>(t) << ";" << get<2>(t) << endl;
+	}	
 }
 
 
@@ -750,6 +819,7 @@ void run_mearurements_a_32(size_t min_size, size_t max_size) {
 
 
 		// measure_and_print_mult_a_32(data1);
+		measure_and_print_mult_b_32<IntMax>(data1);
 		// measure_and_print_mult_f_32(data1);
 
 		cout << "-------------------------" << endl;
@@ -820,8 +890,8 @@ int main(int /*argc*/, char const * /*argv*/[]) {
 	//size_t max_size = 16 * 1024 * 1024;		// Out of memory for mult_big_vector_hot
 
 	cout << "Types int64_t and int32_t ---------------------------------------\n";
-	// run_mearurements_a_32<int64_t, int32_t>(min_size, max_size);
-	run_mearurements_b_32<int64_t, int32_t>(min_size, max_size);
+	run_mearurements_a_32<int64_t, int32_t>(min_size, max_size);
+	// run_mearurements_b_32<int64_t, int32_t>(min_size, max_size);
 
 
 	// cout << "Types int201_t and int101_t ---------------------------------------\n";
