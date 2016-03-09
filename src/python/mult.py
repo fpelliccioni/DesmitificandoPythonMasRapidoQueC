@@ -458,7 +458,7 @@ def copy_list(source, target):
 def measure_and_print_mult_a(data):
 
 	p = measure_unary( data,
-					1000,
+					100,
 					lambda: None,
 					lambda x: mult_a(x)
 					)
@@ -485,7 +485,7 @@ def measure_and_print_mult_b(data):
 	output = len(data) * [None]
 
 	p = measure_nullary(
-					1000,
+					100,
 					lambda: clear_list(output),  #output[:] = [],
 					lambda: mult_b(data, output)
 					)
@@ -525,7 +525,7 @@ def measure_and_print_mult_c(input_a, input_b):
 	output = len(input_a) * [None]
 
 	p = measure_nullary(
-					1000,
+					100,
 					lambda: clear_list(output),
 					lambda: mult_c(input_a, input_b, output)
 					)
@@ -536,7 +536,7 @@ def measure_and_print_mult_d(dataP):
 
 	dataT = pairs_to_triples(dataP)
 
-	p = measure_nullary(1000,
+	p = measure_nullary(100,
 					lambda: clear_list_third(dataT),
 					lambda: mult_d(dataT)
 					)
@@ -547,7 +547,7 @@ def measure_and_print_mult_e(input_output, input):
 
 	input_output_copy = input_output[:]
 
-	p = measure_nullary(1000,
+	p = measure_nullary(100,
 					lambda: copy_list(input_output_copy, input_output),
 					lambda: mult_e(input_output, input)
 					)
@@ -558,7 +558,7 @@ def measure_and_print_mult_e(input_output, input):
 def measure_and_print_mult_f(input_a, input_b):
 
 	p = measure_nullary(
-					1000,
+					100,
 					lambda: None,
 					lambda: mult_f(input_a, input_b)
 					)
@@ -605,14 +605,14 @@ def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 
 
 
-		# measure_and_print_mult_a(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_mult_a(data)              	# falta medir 32: osx,         101: win32, osx
 		# measure_and_print_mult_a_with_copy(data)    	# falta medir 32: win32, osx   101: win32, osx
 
 
 		# measure_and_print_mult_b(data)   # falta medir, osx
 		# measure_and_print_mult_b_variant(data, bits_min)   # falta medir, osx
 
-		measure_and_print_mult_d(data)   # falta medir , osx
+		# measure_and_print_mult_d(data)   # falta medir , osx
 
 		print("-------------------------")
 
@@ -629,9 +629,9 @@ def run_mearurements_b(bits_min, bits_max, min_size, max_size):
 		input_a = createRandomIntList_Bits_Signed(bits_min, array_size)
 		input_b = createRandomIntList_Bits_Signed(bits_min, array_size)
 
-		measure_and_print_mult_c(input_a, input_b)     # falta medir 32: osx,         101: win32, osx
+		# measure_and_print_mult_c(input_a, input_b)     # falta medir 32: osx,         101: win32, osx
 		# measure_and_print_mult_e(input_a, input_b)   # falta medir 32: osx,         101: win32, osx
-		# measure_and_print_mult_f(input_a, input_b)     # falta medir 32: osx,         101: win32, osx
+		measure_and_print_mult_f(input_a, input_b)     # falta medir 32: osx,         101: win32, osx
 
 
 		print("-------------------------")
@@ -653,14 +653,14 @@ def run_mearurements_c(bits):
 
 def main():
 	# min_size = 8;
-	# min_size = 16 * 1024
-	min_size = 8 * 1024 * 1024;
+	min_size = 16 * 1024
+	# min_size = 8 * 1024 * 1024;
 
 	max_size = 8 * 1024 * 1024;
 	# max_size = 16 * 1024 * 1024;
 
 	# bits_min = 32
-	# bits_max = 64?
+	# bits_max = 64 #?
 	bits_min = 101
 	bits_max = 201
 
