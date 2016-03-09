@@ -3,10 +3,27 @@
 //  https://docs.python.org/3.5/extending/building.html#building
 
 // Compilation
+//  Windows:
+//    For Visual Studio 2013 (VS12): 
+//      SET VS90COMNTOOLS=%VS120COMNTOOLS%
+//    For Visual Studio 2015 (VS14): 
+//      SET VS90COMNTOOLS=%VS140COMNTOOLS%
+
+//    #python setup.py build
+//    #python setup.py install
+//    py -2 setup.py build
+//    py -2 setup.py install
+
+//    D:\Python27\Python.exe setup.py build
+
+
+//    py -3 setup.py build
+//    py -3 setup.py install
+// Linux?   
 //    export CFLAGS='-std=c++11'
 // 		python setup.py build
 // 		python setup.py install
-//  or (on OSX)
+//  OSX
 //    export CPPFLAGS='-std=c++1y -stdlib=libc++ -mmacosx-version-min=10.7'
 //    python3 setup.py build
 //    python3 setup.py install
