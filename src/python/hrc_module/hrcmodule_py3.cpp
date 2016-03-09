@@ -9,30 +9,24 @@
 //    For Visual Studio 2015 (VS14): 
 //      SET VS90COMNTOOLS=%VS140COMNTOOLS%
 
-//    #python setup.py build
-//    #python setup.py install
-//    py -2 setup.py build
-//    py -2 setup.py install
+//    #python setup_py3.py build
+//    #python setup_py3.py install
 
-//    D:\Python27\Python.exe setup.py build
-
-
-//    py -3 setup.py build
-//    py -3 setup.py install
+//    py -3 setup_py3.py build
+//    py -3 setup_py3.py install
 // Linux?   
 //    export CFLAGS='-std=c++11'
-// 		python setup.py build
-// 		python setup.py install
+// 		python setup_py3.py build
+// 		python setup_py3.py install
 //  OSX
 //    export CPPFLAGS='-std=c++1y -stdlib=libc++ -mmacosx-version-min=10.7'
-//    python3 setup.py build
-//    python3 setup.py install
+//    python3 setup_py3.py build
+//    python3 setup_py3.py install
 
 
 // Test
 // 		>>> import hrc
 // 		>>> status = hrc.nanoseconds_since_epoch()
-
 
 
 // hrc: high_resolution_clock

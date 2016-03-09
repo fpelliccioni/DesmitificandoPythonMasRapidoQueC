@@ -1,3 +1,10 @@
+# Python 2
+# 	py -2 sort.py
+# Python 3
+#	py -3 sort.py
+
+
+
 import hrc
 import random
 # import timeit  # http://stackoverflow.com/questions/85451/python-time-clock-vs-time-time-accuracy

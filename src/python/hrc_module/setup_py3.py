@@ -1,7 +1,7 @@
 from distutils.core import setup, Extension
 
 module1 = Extension('hrc',
-                    sources = ['hrcmodule.cpp'])
+                    sources = ['hrcmodule_py3.cpp'])
 
 setup (name = 'PackageName',
        version = '1.0',
