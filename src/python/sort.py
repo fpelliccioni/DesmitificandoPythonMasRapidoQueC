@@ -22,8 +22,20 @@ import sys
 # r is a Weak Ordering relation on Domain(S)
 # in-place sort?
 # stable?
-def fer_sort(s, r):
+# def fer_sort(s, r):
 
+
+
+class entity:
+  def __init__(self, a, b, c, d, e):
+    self.a = a
+    self.b = b
+    self.c = c
+    self.d = d
+    self.e = e
+
+  # def __repr__(self):
+  #   return "Employee { i:%s n:%s s:%s }" % (self.i, self.n, self.s)
 
 
 # ----------------------------------------------------------------------------
@@ -31,11 +43,11 @@ def fer_sort(s, r):
 # ----------------------------------------------------------------------------
 
 def sort_just_sort(data):
-	# print(data[0]);
-	t1 = hrc.nanoseconds_since_epoch()
-	sdata = sorted(data) 
-	t2 = hrc.nanoseconds_since_epoch()
-	return t2 - t1
+    # print(data[0]);
+    t1 = hrc.nanoseconds_since_epoch()
+    sdata = sorted(data) 
+    t2 = hrc.nanoseconds_since_epoch()
+    return t2 - t1
 
 def sort_with_key_1(data):
 	t1 = hrc.nanoseconds_since_epoch()
@@ -251,6 +263,110 @@ def sort_with_cmp_4(data):
 
 
 
+def sort_entity_key_1(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: x.a) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_key_2(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: x.a) 
+	sdata  = sorted(sdata, key=lambda x: x.b) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_key_3(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: x.a) 
+	sdata  = sorted(sdata, key=lambda x: x.b) 
+	sdata  = sorted(sdata, key=lambda x: x.c) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_key_4(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: x.a) 
+	sdata  = sorted(sdata, key=lambda x: x.b) 
+	sdata  = sorted(sdata, key=lambda x: x.c) 
+	sdata  = sorted(sdata, key=lambda x: x.d) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_key_5(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: x.a) 
+	sdata  = sorted(sdata, key=lambda x: x.b) 
+	sdata  = sorted(sdata, key=lambda x: x.c) 
+	sdata  = sorted(sdata, key=lambda x: x.d) 
+	sdata  = sorted(sdata, key=lambda x: x.e) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
+def weak_ordering_entity_cmp_1(a, b):
+    if a.a < b.a:
+        return -1
+    else:
+        if a.a > b.a:
+            return 1
+        else:
+	        return 0
+
+def weak_ordering_entity_cmp_2(a, b):
+    if a.a < b.a:
+        return -1
+    else:
+        if a.a > b.a:
+            return 1
+        else:
+		    if a.b < b.b:
+		        return -1
+		    else:
+		        if a.b > b.b:
+		            return 1
+		        else:
+			        return 0
+
+def weak_ordering_entity_cmp_3(a, b):
+    if a.a < b.a:
+        return -1
+    else:
+        if a.a > b.a:
+            return 1
+        else:
+		    if a.b < b.b:
+		        return -1
+		    else:
+		        if a.b > b.b:
+		            return 1
+		        else:
+				    if a.c < b.c:
+				        return -1
+				    else:
+				        if a.c > b.c:
+				            return 1
+				        else:
+					        return 0
+
+def sort_entity_cmp_1(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_entity_cmp_1)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_cmp_2(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_entity_cmp_2)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_cmp_3(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_entity_cmp_3)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
 
 # def mult_a(data):
 
@@ -436,6 +552,47 @@ def sort_with_cmp_4(data):
 # ----------------------------------------------------------------------------
 # Measurement tools
 # ----------------------------------------------------------------------------
+
+import string
+import random
+
+def random_string_detail(size=6, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
+	return ''.join(random.choice(chars) for _ in range(size))
+
+def random_string(size_from, size_to):
+	size = random.randint(size_from, size_to)
+	return random_string_detail(size)
+
+
+
+def createRandomEntityList(int_from, int_to, size_from, size_to, max_data):
+    res = []
+
+    # for i in xrange(0, max_data):
+    for i in range(0, max_data):
+        a = random_string(size_from, size_to)
+        b = random.randint(int_from, int_to)
+        c = random_string(size_from, size_to)
+        d = random.randint(int_from, int_to)
+        e = random_string(size_from, size_to)
+
+        ent = entity(a, b, c, d, e)
+        
+        res.append(ent)
+
+    return res
+
+
+def createRandomStringList(size_from, size_to, max_data):
+    res = []
+
+    # for i in xrange(0, max_data):
+    for i in range(0, max_data):
+        s = random_string(size_from, size_to)
+        res.append(s)
+
+    return res
+
 
 def createRandomIntList(int_from, int_to, max_data):
     res = []
@@ -815,6 +972,7 @@ def measure_and_print_sort_with_cmp_3(data):
 					)
 	print("sort_with_cmp_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
+
 def measure_and_print_sort_with_cmp_4(data):
 	p = measure_unary_immutable( data,
 					100,
@@ -822,6 +980,59 @@ def measure_and_print_sort_with_cmp_4(data):
 					lambda x: sort_with_cmp_4(x)
 					)
 	print("sort_with_cmp_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+
+def measure_and_print_sort_entity_key_1(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_key_1(x)
+					)
+	print("sort_entity_key_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_entity_key_2(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_key_2(x)
+					)
+	print("sort_entity_key_2           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_entity_key_3(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_key_3(x)
+					)
+	print("sort_entity_key_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_entity_cmp_1(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_cmp_1(x)
+					)
+	print("sort_entity_cmp_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+def measure_and_print_sort_entity_cmp_2(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_cmp_2(x)
+					)
+	print("sort_entity_cmp_2           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+def measure_and_print_sort_entity_cmp_3(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_cmp_3(x)
+					)
+	print("sort_entity_cmp_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
 
 
 
@@ -840,20 +1051,21 @@ def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 		data = createRandomIntList_Bits_Signed(bits_min, array_size)
 		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
 
-		measure_and_print_sort_just_sort(data)              # falta medir 32: osx,         101: win32, osx
-		measure_and_print_sort_with_key_1(data)              	# falta medir 32: osx,         101: win32, osx
-		measure_and_print_sort_with_key_2(data)              	# falta medir 32: osx,         101: win32, osx
+		# measure_and_print_sort_just_sort(data)              # falta medir 32: osx,         101: win32, osx
+
+		# measure_and_print_sort_with_key_1(data)              	# falta medir 32: osx,         101: win32, osx
+		# measure_and_print_sort_with_key_2(data)              	# falta medir 32: osx,         101: win32, osx
 		measure_and_print_sort_with_key_3(data)              	# falta medir 32: osx,         101: win32, osx
-		measure_and_print_sort_with_key_4(data)              	# falta medir 32: osx,         101: win32, osx
-		measure_and_print_sort_with_key_5(data)              	# falta medir 32: osx,         101: win32, osx
+		# measure_and_print_sort_with_key_4(data)              	# falta medir 32: osx,         101: win32, osx
+		# measure_and_print_sort_with_key_5(data)              	# falta medir 32: osx,         101: win32, osx
 		measure_and_print_sort_with_key_6(data)              	# falta medir 32: osx,         101: win32, osx
 
 		if (sys.version_info < (3, 0)):  # Python 2
-			measure_and_print_sort_with_cmp_1(data)              	# falta medir 32: osx,         101: win32, osx
-			measure_and_print_sort_with_cmp_1_b(data)              	# falta medir 32: osx,         101: win32, osx
+			# measure_and_print_sort_with_cmp_1(data)              	# falta medir 32: osx,         101: win32, osx
+			# measure_and_print_sort_with_cmp_1_b(data)              	# falta medir 32: osx,         101: win32, osx
 			measure_and_print_sort_with_cmp_2(data)              	# falta medir 32: osx,         101: win32, osx
-			measure_and_print_sort_with_cmp_2_b(data)
-			measure_and_print_sort_with_cmp_3(data)              	# falta medir 32: osx,         101: win32, osx
+			# measure_and_print_sort_with_cmp_2_b(data)
+			# measure_and_print_sort_with_cmp_3(data)              	# falta medir 32: osx,         101: win32, osx
 			measure_and_print_sort_with_cmp_4(data)              	# falta medir 32: osx,         101: win32, osx
 		else:
 			print("sorted() with cmp is removed from Python3")
@@ -862,6 +1074,41 @@ def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 
 		array_size *= 2
 	
+
+def run_mearurements_b(bits_min, bits_max, min_size, max_size):
+
+	array_size = min_size
+	str_size_from = 10
+	str_size_to = 32
+
+	while array_size <= max_size:
+
+		data = createRandomEntityList(bits_min, bits_max, str_size_from, str_size_to, array_size)
+		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
+
+		# print(data[0].a)
+		# print(data[0].b)
+		# print(data[0].c)
+		# print(data[0].d)
+		# print(data[0].e)
+
+		measure_and_print_sort_entity_key_1(data)
+		measure_and_print_sort_entity_key_2(data)
+		measure_and_print_sort_entity_key_3(data)
+
+		if (sys.version_info < (3, 0)):  # Python 2
+			measure_and_print_sort_entity_cmp_1(data)
+			measure_and_print_sort_entity_cmp_2(data)
+			measure_and_print_sort_entity_cmp_3(data)
+		else:
+			print("sorted() with cmp is removed from Python3")
+
+		print("-------------------------")
+
+		array_size *= 2
+	
+
+
 
 
 
@@ -882,9 +1129,11 @@ def main():
 	bits_max = 64
 	# bits_min = 101
 	# bits_max = 201
+	str_size_from = 10
+	str_size_to = 32
 
-
-	run_mearurements_a(bits_min, bits_max, min_size, max_size)
+	# run_mearurements_a(bits_min, bits_max, min_size, max_size)
+	run_mearurements_b(bits_min, bits_max, min_size, max_size)
 
 
 	# bits = 32
