@@ -20,22 +20,39 @@ import sys
 
 
 def sort_just_sort(data):
-
 	# print(data[0]);
-
 	t1 = hrc.nanoseconds_since_epoch()
 	sdata = sorted(data) 
 	t2 = hrc.nanoseconds_since_epoch()
-
 	return t2 - t1
 
-
-def sort_with_key(data):
-
+def sort_with_key_1(data):
 	t1 = hrc.nanoseconds_since_epoch()
-	sdata = sorted(data, key=lambda b: (b,)) 
+	sdata = sorted(data, key=lambda x: (x,)) 
 	t2 = hrc.nanoseconds_since_epoch()
 	return t2 - t1
+
+def sort_with_key_2(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, key=lambda x: (x & 0b00000000000000001111111111111111, x & 0b11111111111111110000000000000000)) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+# Cuando no se puede usar un key porque la Relation es muy compleja. La solucion recomendada es:
+def sort_with_key_3(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: (x & 0b00000000000000001111111111111111,)) 
+	ssdata = sorted(sdata, key=lambda x: (x & 0b11111111111111110000000000000000,)) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_with_key_4(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: (x & 0b00000000000000001111111111111111,)) 
+	sdata.sort(key=lambda x: (x & 0b11111111111111110000000000000000,)) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
 
 
 # def precedencia(a, b):
@@ -52,8 +69,8 @@ def sort_with_key(data):
 #     return 1
 
 def weak_ordering_cmp_1(a, b):
-    nombre1, valor1 = a
-    nombre2, valor2 = b
+    # nombre1, valor1 = a
+    # nombre2, valor2 = b
 
     if a < b:
         return -1
@@ -63,12 +80,71 @@ def weak_ordering_cmp_1(a, b):
         else:
             return 0
 
-def sort_with_cmp(data):
-
+def sort_with_cmp_1(data):
 	t1 = hrc.nanoseconds_since_epoch()
 	sdata = sorted(data, cmp=weak_ordering_cmp_1)
 	t2 = hrc.nanoseconds_since_epoch()
 	return t2 - t1
+
+
+def weak_ordering_cmp_1_b(a, b):
+    return cmp(a, b)
+
+def sort_with_cmp_1_b(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_cmp_1_b)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
+def weak_ordering_cmp_2(a, b):
+    a1 = a & 0b00000000000000001111111111111111
+    b1 = b & 0b00000000000000001111111111111111
+
+    if a1 < b1:
+        return -1
+    else:
+        if a1 > b1:
+            return 1
+        else:
+            a2 = a & 0b11111111111111110000000000000000
+            b2 = b & 0b11111111111111110000000000000000
+
+            if a2 < b2:
+                return -1
+            else:
+                if a2 > b2:
+                    return 1
+                else:
+                    return 0
+
+def sort_with_cmp_2(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_cmp_2)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
+def weak_ordering_cmp_2_b(a, b):
+    a1 = a & 0b00000000000000001111111111111111
+    b1 = b & 0b00000000000000001111111111111111
+
+    if a1 < b1:
+        return -1
+    else:
+        if a1 > b1:
+            return 1
+        else:
+            a2 = a & 0b11111111111111110000000000000000
+            b2 = b & 0b11111111111111110000000000000000
+            return cmp(a2, b2)
+
+def sort_with_cmp_2_b(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_cmp_2_b)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
 
 
 
@@ -526,7 +602,7 @@ def copy_list(source, target):
 def measure_and_print_sort_just_sort(data):
 
 	p = measure_unary_immutable( data,
-					1000,
+					100,
 					lambda: None,
 					lambda x: sort_just_sort(x)
 					)
@@ -535,28 +611,87 @@ def measure_and_print_sort_just_sort(data):
 
 	
 
-def measure_and_print_sort_with_key(data):
+def measure_and_print_sort_with_key_1(data):
 
 	p = measure_unary_immutable( data,
-					1000,
+					100,
 					lambda: None,
-					lambda x: sort_with_key(x)
+					lambda x: sort_with_key_1(x)
 					)
 
-	print("sort_with_key             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+	print("sort_with_key_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
-
-def measure_and_print_sort_with_cmp(data):
+def measure_and_print_sort_with_key_2(data):
 
 	p = measure_unary_immutable( data,
-					1000,
+					100,
 					lambda: None,
-					lambda x: sort_with_cmp(x)
+					lambda x: sort_with_key_2(x)
 					)
 
-	print("sort_with_cmp             ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+	print("sort_with_key_2           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_with_key_3(data):
+
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_key_3(x)
+					)
+
+	print("sort_with_key_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_with_key_4(data):
+
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_key_4(x)
+					)
+
+	print("sort_with_key_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
+
+def measure_and_print_sort_with_cmp_1(data):
+
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_cmp_1(x)
+					)
+
+	print("sort_with_cmp_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+def measure_and_print_sort_with_cmp_1_b(data):
+
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_cmp_1_b(x)
+					)
+
+	print("sort_with_cmp_1_b         ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+
+def measure_and_print_sort_with_cmp_2(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_cmp_2(x)
+					)
+
+	print("sort_with_cmp_2           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_with_cmp_2_b(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_cmp_2_b(x)
+					)
+	print("sort_with_cmp_2_b         ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
 
@@ -570,14 +705,21 @@ def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 
 	while array_size <= max_size:
 
-		data = createRandomPairIntList_Bits_Signed(bits_min, array_size)
+		# data = createRandomPairIntList_Bits_Signed(bits_min, array_size)
+		data = createRandomIntList_Bits_Signed(bits_min, array_size)
 		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
 
 		measure_and_print_sort_just_sort(data)              # falta medir 32: osx,         101: win32, osx
-		measure_and_print_sort_with_key(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_sort_with_key_1(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_sort_with_key_2(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_sort_with_key_3(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_sort_with_key_4(data)              	# falta medir 32: osx,         101: win32, osx
 
 		if (sys.version_info < (3, 0)):  # Python 2
-			measure_and_print_sort_with_cmp(data)              	# falta medir 32: osx,         101: win32, osx
+			measure_and_print_sort_with_cmp_1(data)              	# falta medir 32: osx,         101: win32, osx
+			measure_and_print_sort_with_cmp_1_b(data)              	# falta medir 32: osx,         101: win32, osx
+			measure_and_print_sort_with_cmp_2(data)              	# falta medir 32: osx,         101: win32, osx
+			measure_and_print_sort_with_cmp_2_b(data)
 		else:
 			print("sorted() with cmp is removed from Python3")
 
@@ -596,6 +738,7 @@ def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 def main():
 	min_size = 8;
 	# min_size = 16 * 1024
+	# min_size = 2 * 1024 * 1024;
 	# min_size = 8 * 1024 * 1024;
 	max_size = 8 * 1024 * 1024;
 	# max_size = 16 * 1024 * 1024;
@@ -609,26 +752,29 @@ def main():
 	run_mearurements_a(bits_min, bits_max, min_size, max_size)
 
 
+	# bits = 32
+	# int_from = min_signed_int(bits)
+	# int_to = max_signed_int(bits)
+	# number = random.randint(int_from, int_to)
+
+	# # number = 14           #1110
+	# print(number)
+	# print(bin(number))
+
+	# # n1 = number << 2
+	# # n2 = number >> 2
+	# n1 = number & 0b11111111111111110000000000000000
+	# n2 = number & 0b00000000000000001111111111111111
+
+	# print(n1)
+	# print(bin(n1))
+	# print(n2)
+	# print(bin(n2))
+
+
 # ----------------------------------------------------------------------------
 # ----------------------------------------------------------------------------
 
 if __name__ == "__main__":
   main()
-
-
-
-
-# OSX 101
-
-# mult_a             ; 16384 ; 6627900.8125 ; 953457.0026526788 ; 6252629
-# mult_a             ; 32768 ; 12818854.60625 ; 1364977.8144887462 ; 12118163
-# mult_a             ; 65536 ; 27835620.70625 ; 2770978.4025290012 ; 28721729
-# mult_a             ; 131072 ; 64378065.19 ; 8132359.749983651 ; 62936172
-# mult_a             ; 262144 ; 148080625.39375 ; 8487507.470763113 ; 144717504
-# mult_a             ; 524288 ; 359810770.50625 ; 14848895.704568783 ; 354665421
-# mult_a             ; 1048576 ; 865241608.27375 ; 71267456.74998635 ; 826803943
-# mult_a             ; 2097152 ; 1715553846.12375 ; 33451468.895944733 ; 1706958502
-# mult_a             ; 4194304 ; 3454175014.7875 ; 63640932.92547689 ; 3456044671
-# mult_a             ; 8388608 ; 7044168862.95125 ; 301472383.99062383 ; 6893680555
-
 

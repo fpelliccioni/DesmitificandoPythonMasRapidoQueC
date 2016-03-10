@@ -17,8 +17,8 @@
 // 		python setup_py2.py install
 //  OSX
 //    export CPPFLAGS='-std=c++1y -stdlib=libc++ -mmacosx-version-min=10.7'
-//    python2??? setup_py2.py build
-//    python2??? setup_py2.py install
+//    python setup_py2.py build
+//    sudo python setup_py2.py install
 
 
 // Test
