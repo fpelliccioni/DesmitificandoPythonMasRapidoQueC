@@ -18,6 +18,17 @@ import sys
 # Algorithms
 # ----------------------------------------------------------------------------
 
+# s is a sequence
+# r is a Weak Ordering relation on Domain(S)
+# in-place sort?
+# stable?
+def fer_sort(s, r):
+
+
+
+# ----------------------------------------------------------------------------
+# Test
+# ----------------------------------------------------------------------------
 
 def sort_just_sort(data):
 	# print(data[0]);
@@ -53,6 +64,21 @@ def sort_with_key_4(data):
 	t2 = hrc.nanoseconds_since_epoch()
 	return t2 - t1
 
+def sort_with_key_5(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data,  key=lambda x: (x & 0b00000000000000001111111111111111,)) 
+	sdata = sorted(sdata, key=lambda x: (x & 0b11111111111111110000000000000000,)) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+#
+def sort_with_key_6(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data,  key=lambda x: (x & 0b00000000111111111111111100000000,))
+	sdata = sorted(sdata, key=lambda x: (x & 0b00000000000000000000000011111111,))
+	sdata = sorted(sdata, key=lambda x: (x & 0b11111111000000000000000000000000,))
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
 
 
 # def precedencia(a, b):
@@ -146,6 +172,82 @@ def sort_with_cmp_2_b(data):
 	return t2 - t1
 
 
+
+
+def weak_ordering_cmp_3(a, b):
+    a1 = a & 0b00000000111111111111111100000000
+    b1 = b & 0b00000000111111111111111100000000
+
+    if a1 < b1:
+        return -1
+    else:
+        if a1 > b1:
+            return 1
+        else:
+            a2 = a & 0b00000000000000000000000011111111
+            b2 = b & 0b00000000000000000000000011111111
+
+            if a2 < b2:
+                return -1
+            else:
+                if a2 > b2:
+                    return 1
+                else:
+		            a3 = a & 0b11111111000000000000000000000000
+		            b3 = b & 0b11111111000000000000000000000000
+
+		            if a3 < b3:
+		                return -1
+		            else:
+		                if a3 > b3:
+		                    return 1
+		                else:
+		                    return 0
+
+def sort_with_cmp_3(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_cmp_3)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
+
+
+def weak_ordering_cmp_4(a, b):
+    ax = a & 0b00000000111111111111111100000000
+    bx = b & 0b00000000111111111111111100000000
+
+    if ax < bx:
+        return -1
+    else:
+        if ax > bx:
+            return 1
+        else:
+            ax = a & 0b00000000000000000000000011111111
+            bx = b & 0b00000000000000000000000011111111
+
+            if ax < bx:
+                return -1
+            else:
+                if ax > bx:
+                    return 1
+                else:
+		            ax = a & 0b11111111000000000000000000000000
+		            bx = b & 0b11111111000000000000000000000000
+
+		            if ax < bx:
+		                return -1
+		            else:
+		                if ax > bx:
+		                    return 1
+		                else:
+		                    return 0
+
+def sort_with_cmp_4(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_cmp_4)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
 
 
 
@@ -642,14 +744,31 @@ def measure_and_print_sort_with_key_3(data):
 	print("sort_with_key_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 def measure_and_print_sort_with_key_4(data):
-
 	p = measure_unary_immutable( data,
 					100,
 					lambda: None,
 					lambda x: sort_with_key_4(x)
 					)
-
 	print("sort_with_key_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+def measure_and_print_sort_with_key_5(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_key_5(x)
+					)
+	print("sort_with_key_5           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_with_key_6(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_key_6(x)
+					)
+	print("sort_with_key_6           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
 
 
 
@@ -665,16 +784,12 @@ def measure_and_print_sort_with_cmp_1(data):
 
 
 def measure_and_print_sort_with_cmp_1_b(data):
-
 	p = measure_unary_immutable( data,
 					100,
 					lambda: None,
 					lambda x: sort_with_cmp_1_b(x)
 					)
-
 	print("sort_with_cmp_1_b         ;", len(data), ";", p[0], ";", p[1], ";", p[2])
-
-
 
 def measure_and_print_sort_with_cmp_2(data):
 	p = measure_unary_immutable( data,
@@ -682,7 +797,6 @@ def measure_and_print_sort_with_cmp_2(data):
 					lambda: None,
 					lambda x: sort_with_cmp_2(x)
 					)
-
 	print("sort_with_cmp_2           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 def measure_and_print_sort_with_cmp_2_b(data):
@@ -692,6 +806,23 @@ def measure_and_print_sort_with_cmp_2_b(data):
 					lambda x: sort_with_cmp_2_b(x)
 					)
 	print("sort_with_cmp_2_b         ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_with_cmp_3(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_cmp_3(x)
+					)
+	print("sort_with_cmp_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_with_cmp_4(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_with_cmp_4(x)
+					)
+	print("sort_with_cmp_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
 
 
 
@@ -714,12 +845,16 @@ def run_mearurements_a(bits_min, bits_max, min_size, max_size):
 		measure_and_print_sort_with_key_2(data)              	# falta medir 32: osx,         101: win32, osx
 		measure_and_print_sort_with_key_3(data)              	# falta medir 32: osx,         101: win32, osx
 		measure_and_print_sort_with_key_4(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_sort_with_key_5(data)              	# falta medir 32: osx,         101: win32, osx
+		measure_and_print_sort_with_key_6(data)              	# falta medir 32: osx,         101: win32, osx
 
 		if (sys.version_info < (3, 0)):  # Python 2
 			measure_and_print_sort_with_cmp_1(data)              	# falta medir 32: osx,         101: win32, osx
 			measure_and_print_sort_with_cmp_1_b(data)              	# falta medir 32: osx,         101: win32, osx
 			measure_and_print_sort_with_cmp_2(data)              	# falta medir 32: osx,         101: win32, osx
 			measure_and_print_sort_with_cmp_2_b(data)
+			measure_and_print_sort_with_cmp_3(data)              	# falta medir 32: osx,         101: win32, osx
+			measure_and_print_sort_with_cmp_4(data)              	# falta medir 32: osx,         101: win32, osx
 		else:
 			print("sorted() with cmp is removed from Python3")
 
