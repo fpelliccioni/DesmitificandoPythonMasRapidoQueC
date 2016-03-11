@@ -34,6 +34,39 @@ class entity:
     self.d = d
     self.e = e
 
+
+class triangle:
+	def __init__(self, a, b):
+		self.a = a
+		self.b = b
+
+	def __lt__(self, other):
+		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		return h1 < h2
+
+class container:
+    def __init__(self, t):
+        self.t = t
+
+    # def __repr__(self):
+    #     #Hay alguna forma mejor de hacer esto?
+    #     return "ClassB(%d, ClassA(%d))" % (self.x, self.y.x)
+    # def __str__(self):
+    #     return "member of ClassB"        
+
+
+
   # def __repr__(self):
   #   return "Employee { i:%s n:%s s:%s }" % (self.i, self.n, self.s)
 
@@ -349,6 +382,66 @@ def weak_ordering_entity_cmp_3(a, b):
 				        else:
 					        return 0
 
+def weak_ordering_entity_cmp_4(a, b):
+    if a.a < b.a:
+        return -1
+    else:
+        if a.a > b.a:
+            return 1
+        else:
+		    if a.b < b.b:
+		        return -1
+		    else:
+		        if a.b > b.b:
+		            return 1
+		        else:
+				    if a.c < b.c:
+				        return -1
+				    else:
+				        if a.c > b.c:
+				            return 1
+				        else:
+						    if a.d < b.d:
+						        return -1
+						    else:
+						        if a.d > b.d:
+						            return 1
+						        else:
+							        return 0
+
+def weak_ordering_entity_cmp_5(a, b):
+    if a.a < b.a:
+        return -1
+    else:
+        if a.a > b.a:
+            return 1
+        else:
+		    if a.b < b.b:
+		        return -1
+		    else:
+		        if a.b > b.b:
+		            return 1
+		        else:
+				    if a.c < b.c:
+				        return -1
+				    else:
+				        if a.c > b.c:
+				            return 1
+				        else:
+						    if a.d < b.d:
+						        return -1
+						    else:
+						        if a.d > b.d:
+						            return 1
+						        else:
+								    if a.e < b.e:
+								        return -1
+								    else:
+								        if a.e > b.e:
+								            return 1
+								        else:
+									        return 0
+
 def sort_entity_cmp_1(data):
 	t1 = hrc.nanoseconds_since_epoch()
 	sdata = sorted(data, cmp=weak_ordering_entity_cmp_1)
@@ -366,6 +459,39 @@ def sort_entity_cmp_3(data):
 	sdata = sorted(data, cmp=weak_ordering_entity_cmp_3)
 	t2 = hrc.nanoseconds_since_epoch()
 	return t2 - t1
+
+def sort_entity_cmp_4(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_entity_cmp_4)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def sort_entity_cmp_5(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_entity_cmp_5)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
+
+def sort_container_key_1(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: x.t) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+def weak_ordering_container_cmp_1(a, b):
+    if a.t < b.t:  return -1
+    if a.t < b.t: return 1
+    return 0
+
+def sort_container_cmp_1(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_container_cmp_1)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
 
 
 # def mult_a(data):
@@ -581,6 +707,21 @@ def createRandomEntityList(int_from, int_to, size_from, size_to, max_data):
         res.append(ent)
 
     return res
+
+def createRandomContainerList(int_from, int_to, max_data):
+    res = []
+
+    # for i in xrange(0, max_data):
+    for i in range(0, max_data):
+        a = random.randint(int_from, int_to)
+        b = random.randint(int_from, int_to)
+
+        c = container(triangle(a, b))
+        
+        res.append(c)
+
+    return res
+
 
 
 def createRandomStringList(size_from, size_to, max_data):
@@ -1007,6 +1148,22 @@ def measure_and_print_sort_entity_key_3(data):
 					)
 	print("sort_entity_key_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
+def measure_and_print_sort_entity_key_4(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_key_4(x)
+					)
+	print("sort_entity_key_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_entity_key_5(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_key_5(x)
+					)
+	print("sort_entity_key_5           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
 def measure_and_print_sort_entity_cmp_1(data):
 	p = measure_unary_immutable( data,
 					100,
@@ -1033,9 +1190,41 @@ def measure_and_print_sort_entity_cmp_3(data):
 					)
 	print("sort_entity_cmp_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
+def measure_and_print_sort_entity_cmp_4(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_cmp_4(x)
+					)
+	print("sort_entity_cmp_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+def measure_and_print_sort_entity_cmp_5(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_entity_cmp_5(x)
+					)
+	print("sort_entity_cmp_5           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
 
+
+def measure_and_print_sort_container_key_1(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_container_key_1(x)
+					)
+	print("sort_container_key_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+def measure_and_print_sort_container_cmp_1(data):
+	p = measure_unary_immutable( data,
+					100,
+					lambda: None,
+					lambda x: sort_container_cmp_1(x)
+					)
+	print("sort_container_cmp_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
 
@@ -1095,11 +1284,15 @@ def run_mearurements_b(bits_min, bits_max, min_size, max_size):
 		measure_and_print_sort_entity_key_1(data)
 		measure_and_print_sort_entity_key_2(data)
 		measure_and_print_sort_entity_key_3(data)
+		measure_and_print_sort_entity_key_4(data)
+		measure_and_print_sort_entity_key_5(data)
 
 		if (sys.version_info < (3, 0)):  # Python 2
 			measure_and_print_sort_entity_cmp_1(data)
 			measure_and_print_sort_entity_cmp_2(data)
 			measure_and_print_sort_entity_cmp_3(data)
+			measure_and_print_sort_entity_cmp_4(data)
+			measure_and_print_sort_entity_cmp_5(data)
 		else:
 			print("sorted() with cmp is removed from Python3")
 
@@ -1108,6 +1301,29 @@ def run_mearurements_b(bits_min, bits_max, min_size, max_size):
 		array_size *= 2
 	
 
+
+def run_mearurements_c(bits_min, bits_max, min_size, max_size):
+
+	array_size = min_size
+	str_size_from = 10
+	str_size_to = 32
+
+	while array_size <= max_size:
+
+		data = createRandomContainerList(bits_min, bits_max, array_size)
+		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
+
+		measure_and_print_sort_container_key_1(data)
+
+		if (sys.version_info < (3, 0)):  # Python 2
+			measure_and_print_sort_container_cmp_1(data)
+		else:
+			print("sorted() with cmp is removed from Python3")
+
+		print("-------------------------")
+
+		array_size *= 2
+	
 
 
 
@@ -1133,7 +1349,8 @@ def main():
 	str_size_to = 32
 
 	# run_mearurements_a(bits_min, bits_max, min_size, max_size)
-	run_mearurements_b(bits_min, bits_max, min_size, max_size)
+	# run_mearurements_b(bits_min, bits_max, min_size, max_size)
+	run_mearurements_c(bits_min, bits_max, min_size, max_size)
 
 
 	# bits = 32
