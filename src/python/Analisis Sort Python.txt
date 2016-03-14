@@ -1,0 +1,71 @@
+Me gustaría hacer algunos comentarios al respeto:
+
+En Python2 se puede usar tanto la "función de comparación" o la "función de extracción del key".
+La documentación dice que en general "cmp" es más costosa que "key". Sí, en *general*, lo que significa que no siempre es más costoso usar cmp que key.
+(https://docs.python.org/2/library/functions.html#sorted)
+
+¿Qué implica usar cmp? (En Python2):
+	1. cmp va a invocarse aproximadamente N*log(N), siendo N es el tamaño de la secuencia (list, array, etc...) a ordenarse.
+
+	2. Ejecución el algoritmo de ordenamiento propiamente dicho. (variante de Mergesort)
+		Para cada par de elementos a comparar, se realiza cmp(b, a) < 0, para saber si *b* es menor que *a*, usando la función de comparación.
+
+	** cmp puede programarse para realizar una comparación "compleja". Con compleja me refiero a que se pueden comparar, por ejemplo, más de un campo con distintos ordenamientos.
+
+¿Qué implica usar key? (En Python2):
+	1. key va a invocarse exactamente N veces. Una vez para cada uno de los N elementos de la secuencia original. (Cada elemento de la secuencia original lo voy a llamar E)
+
+	2. Se "alocan" dinámicamente N objetos K (yo los denomino K, de Key) para almacenar el resultado de la ejecución de la función key para cada uno de los N elementos de la secuencia original. 
+	El tamaño de cada objeto K depende de la función key que nosotros definimos. 
+	Los objetos K no necesariamente están almacenados contiguamente en memoria.
+
+	3. Se "alocan" dinámicamente N objetos P (de Pair).
+		Cada objeto P es un par de punteros (más el header de cada objeto Python) a los objetos K y E anteriores.
+		Cada objeto P tiene un tamaño de 32 bytes en una plataforma de 64-bits.
+	    Los objetos P no necesariamente están almacenados contiguamente en memoria.
+
+	4. Ejecución el algoritmo de ordenamiento propiamente dicho...
+		Para cada par de elementos a comparar, se realiza la comparación Kb < Ka. (Dónde Ka y Kb son los Keys para los elementos Ea y Eb)
+		Luego de este paso queda ordenada la lista de objetos P. 
+
+	5. Se re-genera la lista a partir de la lista de objetos P.
+
+	6. Se "destruyen"/liberan los objetos K y P.
+
+	** Para poder realizar un ordenamiento "complejo", es necesario ejecutar varias veces la función sorted (o list.sort), utilizando diferentes key functions en cada ejecución.
+
+
+Si uno lee esto debería pensar: "Entonces usar key es mucho más lento que cmp". No siempre.
+Entonces, ¿Cuál es más lento?.
+
+Eso depende de:
+	1. Cuán complejo es nuestro criterio de ordenamiento.
+	2. El tamaño de nuestra secuencia.
+
+Para N chicos y criterios simples, key es más rápido que cmp. Cuando N va creciendo o la complejidad del criterio de ordenamiento aumenta, cmp tiende a ser más rápido que key.
+
+
+
+
+
+typedef struct {
+    PyObject_HEAD
+    PyObject *key;
+    PyObject *value;
+} sortwrapperobject;
+
+
+PyObject *    8 bytes   en 64 bits machine
+
+
+
+
+- Total Ordering
+- Partial Ordering
+- Weak Ordering
+- 
+
+
+- Orden lexicográfico
+
+- Uso algunos términos en inglés porque no me gusta como se dicen en español (total ordering vs. orden total), además 

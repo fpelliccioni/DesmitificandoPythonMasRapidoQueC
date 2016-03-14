@@ -44,10 +44,40 @@ hrc_nanoseconds_since_epoch(PyObject *self, PyObject *args) {
     return PyLong_FromLongLong(ns);
 }
 
+static PyObject *
+hrc_size_of_pyobject_ptr(PyObject *self, PyObject *args) {
+    return PyLong_FromSize_t(sizeof(PyObject *));
+}
+
+static PyObject *
+hrc_return_null(PyObject *self, PyObject *args) {
+    // return NULL;
+    Py_RETURN_NONE;
+}
+
+
+
+typedef struct {
+    PyObject_HEAD
+    PyObject *key;
+    PyObject *value;
+} sortwrapperobject;
+
+static PyObject *
+hrc_size_of_sortwrapperobject(PyObject *self, PyObject *args) {
+    return PyLong_FromSize_t(sizeof(sortwrapperobject));
+}
+
 static PyMethodDef HrcMethods[] = {
     //...
     {"nanoseconds_since_epoch",  hrc_nanoseconds_since_epoch, METH_VARARGS,
      "Returns a 64-bit signed integer representing the number of nanoseconds elapsed between Now and the clock's Unix epoch."},
+    {"size_of_pyobject_ptr",  hrc_size_of_pyobject_ptr, METH_VARARGS,
+     "Returns ..."},
+    {"return_null",  hrc_return_null, METH_VARARGS,
+     "Returns ..."},
+    {"size_of_sortwrapperobject",  hrc_size_of_sortwrapperobject, METH_VARARGS,
+     "Returns ..."},
     //...
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
