@@ -43,17 +43,44 @@ class triangle:
 	def __lt__(self, other):
 		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
 		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
-		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
-		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
-		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
-		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
-		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
-		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
-		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
-		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
-		h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
-		h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		# h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		# h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		# h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		# h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		# h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		# h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		# h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		# h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
+		# h1 = math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2)) + math.sqrt(math.pow(self.a, 2)  + math.pow(self.b, 2))
+		# h2 = math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2)) + math.sqrt(math.pow(other.a, 2) + math.pow(other.b, 2))
 		return h1 < h2
+
+class extra:
+	def __init__(self, t):
+		self.t = t
+
+	def __lt__(self, other):
+		# print("extra less than self: " + str(id(self)) + " - other: " + str(id(other)))
+		return self.t < other.t
+
+
+def extra_fo_comp(a, b):
+    if a < b: return -1
+    if a > b: return 1
+    return 0
+
+def compare(a, b, comp):
+	return comp(a, b)
+
+class extra_fo:
+	def __init__(self, t, comp):
+		self.t = t
+		self.comp = comp
+
+	def __lt__(self, other):
+		return compare(self.t, other.t, self.comp) < 0
+
+
 
 class container:
     def __init__(self, t):
@@ -480,9 +507,30 @@ def sort_container_key_1(data):
 	t2 = hrc.nanoseconds_since_epoch()
 	return t2 - t1
 
+
+def extra_call_1(x):
+	return extra_call_2(x)
+
+def extra_call_2(x):
+	return extra_call_3(x)
+
+def extra_call_3(x):
+	return x.t
+
+def extra_call(x):
+	return extra_call_1(x)
+
+def sort_container_key_1_extra(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata  = sorted(data,  key=lambda x: extra_call(x)) 
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
+
+
 def weak_ordering_container_cmp_1(a, b):
-    if a.t < b.t:  return -1
-    if a.t < b.t: return 1
+    if a.t < b.t: return -1
+    # if a.t < b.t: return 1
+    if a.t > b.t: return 1
     return 0
 
 def sort_container_cmp_1(data):
@@ -491,6 +539,18 @@ def sort_container_cmp_1(data):
 	t2 = hrc.nanoseconds_since_epoch()
 	return t2 - t1
 
+
+
+def weak_ordering_triangle_cmp_1(a, b):
+    if a < b: return -1
+    if a > b: return 1
+    return 0
+
+def sort_triangle_cmp_1(data):
+	t1 = hrc.nanoseconds_since_epoch()
+	sdata = sorted(data, cmp=weak_ordering_triangle_cmp_1)
+	t2 = hrc.nanoseconds_since_epoch()
+	return t2 - t1
 
 
 
@@ -708,21 +768,61 @@ def createRandomEntityList(int_from, int_to, size_from, size_to, max_data):
 
     return res
 
-def createRandomContainerList(int_from, int_to, max_data):
-    res = []
+# def createRandomContainerList(int_from, int_to, max_data):
+#     res = []
 
-    # for i in xrange(0, max_data):
-    for i in range(0, max_data):
+#     # for i in xrange(0, max_data):
+#     for i in range(0, max_data):
+#         a = random.randint(int_from, int_to)
+#         b = random.randint(int_from, int_to)
+
+#         c = container(triangle(a, b))
+        
+#         res.append(c)
+
+#     return res
+
+def createRandomContainerList(int_from, int_to, max_data):
+    res = [None] * max_data
+
+    for i in range(max_data):
         a = random.randint(int_from, int_to)
         b = random.randint(int_from, int_to)
-
         c = container(triangle(a, b))
-        
-        res.append(c)
+        res[i] = c
+    return res
 
+def createRandomContainerExtraList(int_from, int_to, max_data):
+    res = [None] * max_data
+
+    for i in range(max_data):
+        a = random.randint(int_from, int_to)
+        b = random.randint(int_from, int_to)
+        c = container(extra(triangle(a, b)))
+        res[i] = c
+    return res
+
+def createRandomContainerExtraFOList(int_from, int_to, max_data):
+    res = [None] * max_data
+
+    for i in range(max_data):
+        a = random.randint(int_from, int_to)
+        b = random.randint(int_from, int_to)
+        c = container(extra_fo(triangle(a, b), extra_fo_comp))
+        res[i] = c
     return res
 
 
+
+def createRandomTriangleList(int_from, int_to, max_data):
+    res = [None] * max_data
+
+    for i in range(max_data):
+        a = random.randint(int_from, int_to)
+        b = random.randint(int_from, int_to)
+        c = triangle(a, b)
+        res[i] = c
+    return res
 
 def createRandomStringList(size_from, size_to, max_data):
     res = []
@@ -996,49 +1096,38 @@ def copy_list(source, target):
 		target[f] = source[f]
 		f += 1
 
-# --------------------
-
+# ------------------------------------------------------------------------
 
 def measure_and_print_sort_just_sort(data):
-
 	p = measure_unary_immutable( data,
 					100,
 					lambda: None,
 					lambda x: sort_just_sort(x)
 					)
-
 	print("sort_just_sort            ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
-	
-
 def measure_and_print_sort_with_key_1(data):
-
 	p = measure_unary_immutable( data,
 					100,
 					lambda: None,
 					lambda x: sort_with_key_1(x)
 					)
-
 	print("sort_with_key_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 def measure_and_print_sort_with_key_2(data):
-
 	p = measure_unary_immutable( data,
 					100,
 					lambda: None,
 					lambda x: sort_with_key_2(x)
 					)
-
 	print("sort_with_key_2           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 def measure_and_print_sort_with_key_3(data):
-
 	p = measure_unary_immutable( data,
 					100,
 					lambda: None,
 					lambda x: sort_with_key_3(x)
 					)
-
 	print("sort_with_key_3           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 def measure_and_print_sort_with_key_4(data):
@@ -1123,6 +1212,7 @@ def measure_and_print_sort_with_cmp_4(data):
 	print("sort_with_cmp_4           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
+# ------------------------------------------------------------------------
 
 def measure_and_print_sort_entity_key_1(data):
 	p = measure_unary_immutable( data,
@@ -1207,26 +1297,48 @@ def measure_and_print_sort_entity_cmp_5(data):
 	print("sort_entity_cmp_5           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
-
+# ------------------------------------------------------------------------
 
 def measure_and_print_sort_container_key_1(data):
 	p = measure_unary_immutable( data,
-					100,
+					10,
 					lambda: None,
 					lambda x: sort_container_key_1(x)
 					)
 	print("sort_container_key_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
+def measure_and_print_sort_container_key_1_extra(data):
+	p = measure_unary_immutable( data,
+					10,
+					lambda: None,
+					lambda x: sort_container_key_1_extra(x)
+					)
+	print("sort_container_key_1_extra     ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+
+
 
 def measure_and_print_sort_container_cmp_1(data):
 	p = measure_unary_immutable( data,
-					100,
+					10,
 					lambda: None,
 					lambda x: sort_container_cmp_1(x)
 					)
 	print("sort_container_cmp_1           ;", len(data), ";", p[0], ";", p[1], ";", p[2])
 
 
+def measure_and_print_sort_triangle_cmp_1(data):
+	p = measure_unary_immutable( data,
+					10,
+					lambda: None,
+					lambda x: sort_triangle_cmp_1(x)
+					)
+	print("sort_triangle_cmp_1            ;", len(data), ";", p[0], ";", p[1], ";", p[2])
+
+
+
+# ------------------------------------------------------------------------
 
 
 
@@ -1310,13 +1422,20 @@ def run_mearurements_c(bits_min, bits_max, min_size, max_size):
 
 	while array_size <= max_size:
 
-		data = createRandomContainerList(bits_min, bits_max, array_size)
+		# data1 = createRandomContainerList(bits_min, bits_max, array_size)
+		data1 = createRandomTriangleList(bits_min, bits_max, array_size)
+		# data2 = createRandomContainerExtraList(bits_min, bits_max, array_size)
+		data2 = createRandomContainerExtraFOList(bits_min, bits_max, array_size)
+		
+		
 		print("data generated: ", array_size, " - time: ", datetime.datetime.now())
 
-		measure_and_print_sort_container_key_1(data)
+		measure_and_print_sort_container_key_1(data2)
+		# measure_and_print_sort_container_key_1_extra(data2)
 
 		if (sys.version_info < (3, 0)):  # Python 2
-			measure_and_print_sort_container_cmp_1(data)
+			# measure_and_print_sort_container_cmp_1(data1)
+			measure_and_print_sort_triangle_cmp_1(data1)
 		else:
 			print("sorted() with cmp is removed from Python3")
 
@@ -1334,8 +1453,9 @@ def run_mearurements_c(bits_min, bits_max, min_size, max_size):
 
 
 def main():
-	min_size = 8;
-	# min_size = 16 * 1024
+	# min_size = 8;
+	min_size = 16 * 1024
+	# min_size = 1 * 1024 * 1024;
 	# min_size = 2 * 1024 * 1024;
 	# min_size = 8 * 1024 * 1024;
 	max_size = 8 * 1024 * 1024;
