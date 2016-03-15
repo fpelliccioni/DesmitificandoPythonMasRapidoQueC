@@ -5,32 +5,34 @@ La documentación dice que en general "cmp" es más costosa que "key". Sí, en *
 (https://docs.python.org/2/library/functions.html#sorted)
 
 ¿Qué implica usar cmp? (En Python2):
-	1. cmp va a invocarse aproximadamente N*log(N), siendo N es el tamaño de la secuencia (list, array, etc...) a ordenarse.
+	(Siendo N el tamaño de la secuencia (list, array, etc...) a ordenarse.)
 
-	2. Ejecución el algoritmo de ordenamiento propiamente dicho. (variante de Mergesort)
-		Para cada par de elementos a comparar, se realiza cmp(b, a) < 0, para saber si *b* es menor que *a*, usando la función de comparación.
+	1. Ejecución el algoritmo de ordenamiento propiamente dicho. (variante de Mergesort)
+		Se realizarán aproximadamente N*log(N) comparaciones de la siguiente forma:
+			cmp(b, a) < 0       (para saber si *b* es menor que *a*)
 
 	** cmp puede programarse para realizar una comparación "compleja". Con compleja me refiero a que se pueden comparar, por ejemplo, más de un campo con distintos ordenamientos.
 
-¿Qué implica usar key? (En Python2):
-	1. key va a invocarse exactamente N veces. Una vez para cada uno de los N elementos de la secuencia original. (Cada elemento de la secuencia original lo voy a llamar E)
+¿Qué implica usar key? (En Python2, *1):
+	1. key va a invocarse exactamente N veces. Una vez para cada uno de los N elementos de la secuencia original. (A cada elemento de la secuencia original lo voy a llamar E)
 
-	2. Se "alocan" dinámicamente N objetos K (yo los denomino K, de Key) para almacenar el resultado de la ejecución de la función key para cada uno de los N elementos de la secuencia original. 
-	El tamaño de cada objeto K depende de la función key que nosotros definimos. 
+	2. Se "alocan" dinámicamente N objetos K (yo los denomino K, de Key) para almacenar el resultado de la ejecución de la key-function para cada uno de los N elementos de la secuencia original. 
+	El tamaño de cada objeto K depende de la key-function que nosotros definimos. 
 	Los objetos K no necesariamente están almacenados contiguamente en memoria.
 
 	3. Se "alocan" dinámicamente N objetos P (de Pair).
 		Cada objeto P es un par de punteros (más el header de cada objeto Python) a los objetos K y E anteriores.
-		Cada objeto P tiene un tamaño de 32 bytes en una plataforma de 64-bits.
+		Cada objeto P tiene un tamaño de 32 bytes en máquinas de 64-bits.
 	    Los objetos P no necesariamente están almacenados contiguamente en memoria.
 
 	4. Ejecución el algoritmo de ordenamiento propiamente dicho...
-		Para cada par de elementos a comparar, se realiza la comparación Kb < Ka. (Dónde Ka y Kb son los Keys para los elementos Ea y Eb)
+		Se realizarán aproximadamente N*log(N) comparaciones de la siguiente forma:
+			Kb < Ka       (Dónde Ka y Kb son los Keys asociados a los elementos Ea y Eb)
 		Luego de este paso queda ordenada la lista de objetos P. 
 
 	5. Se re-genera la lista a partir de la lista de objetos P.
 
-	6. Se "destruyen"/liberan los objetos K y P.
+	6. Se destruyen/liberan los objetos K y P.
 
 	** Para poder realizar un ordenamiento "complejo", es necesario ejecutar varias veces la función sorted (o list.sort), utilizando diferentes key functions en cada ejecución.
 
@@ -40,9 +42,30 @@ Entonces, ¿Cuál es más lento?.
 
 Eso depende de:
 	1. Cuán complejo es nuestro criterio de ordenamiento.
-	2. El tamaño de nuestra secuencia.
+	2. El tamaño de nuestra secuencia, N.
 
 Para N chicos y criterios simples, key es más rápido que cmp. Cuando N va creciendo o la complejidad del criterio de ordenamiento aumenta, cmp tiende a ser más rápido que key.
+
+Así que comparto con la documentación de Python, *en general*, key es más rápido que cmp. Para cada caso en particular les recomiendo medir ambas variantes.
+
+La otra pregunta que debería surgir es: 
+	Dada la complejidad del algoritmo de sorting cuando usamos key (en comparación de usar cmp). ¿Por qué key es más rápido usar key que cmp?
+
+Porque lo que muy costoso, en Python, es el llamado a funciones y por sobre todo, es costosísimo el llamado a Function Objects (funciones pasadas como parámetro a otras funciones, como cmp y key). Es tan costoso el llamado a Function Objects que supongo que tuvieron que crear esta optimización de las key-function.
+
+Aclaración 1: En lenguajes compilados, donde el optimizing-compiler puede hacer inlining de los function-objects, no tendría sentido usar algo como las key-functions, ya que la ejecución de las funciones "cmp" no tiene un overhead asociado como lo hay en Python.
+
+Aclaración 2: Me refiero siempre a CPython (La implementación canónica y más popular de Python¿?) No tengo idea si todo esto es cierto en otras implementaciones.
+
+
+Se abre el debate.
+
+Saludos,
+Fernando.
+
+*1: En Python3 optimizan un poco este algoritmo, pero en general, es bastante similar. Igual, no hay chance de usar cmp en Python3.
+
+
 
 
 
